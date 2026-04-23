@@ -15,14 +15,14 @@ export default function SearchBar({
   return (
     <div className="mb-5 space-y-2">
       <div className="flex border border-wire2 bg-bg2">
-        <span className="font-mono text-[10px] text-tx3 px-3 py-2.5 border-r border-wire flex items-center">
+        <span className="hidden border-r border-wire px-3 py-2.5 font-mono text-[10px] text-tx3 sm:flex items-center">
           SEARCH
         </span>
         <input
           type="text"
           value={search}
           onChange={(e) => onSearch(e.target.value)}
-          placeholder="pattern, keyword, problem, signal..."
+          placeholder="Search pattern, keyword..."
           className="flex-1 bg-transparent px-3 py-2.5 font-mono text-sm text-tx1 placeholder-tx3 outline-none"
         />
         {search && (
