@@ -11,11 +11,11 @@ export default function Header({ totalCount, categoryCounts }) {
 
   return (
     <div className="relative border-b border-wire2 grid-paper overflow-hidden">
-      <div className="mx-auto max-w-5xl px-6 py-7">
+      <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 sm:py-7">
         {/* Top row */}
-        <div className="flex items-start justify-between gap-4 mb-5">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
+        <div className="mb-5 flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+          <div className="min-w-0">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
               <span className="font-mono text-[9px] text-tx3 tracking-[0.2em] uppercase">
                 SYS
               </span>
@@ -28,7 +28,7 @@ export default function Header({ totalCount, categoryCounts }) {
               <span className="blink font-mono text-[9px] text-accent">_</span>
             </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl tracking-wider text-tx1 leading-none">
+            <h1 className="font-display text-[2.1rem] leading-none tracking-wider text-tx1 sm:text-6xl">
               DSA PATTERN <span className="text-accent">RECON</span>
             </h1>
             <p className="font-mono text-[11px] text-tx3 mt-1.5 max-w-md leading-relaxed">
@@ -37,12 +37,12 @@ export default function Header({ totalCount, categoryCounts }) {
             </p>
           </div>
 
-          <div className="flex flex-col items-end gap-2 flex-shrink-0">
+          <div className="flex w-full flex-col gap-2 lg:w-auto lg:flex-shrink-0 lg:items-end">
             <a
               href="https://github.com/sahilbakshi3/Leetcode-solutions"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-wire2 bg-bg2 hover:border-accent hover:text-accent px-3 py-2 font-mono text-[10px] text-tx2 transition-all"
+              className="flex w-full items-center justify-center gap-2 border border-wire2 bg-bg2 px-3 py-2 font-mono text-[10px] text-tx2 transition-all hover:border-accent hover:text-accent lg:w-auto"
             >
               <svg
                 width="12"
@@ -56,18 +56,18 @@ export default function Header({ totalCount, categoryCounts }) {
             </a>
 
             {/* Stats block */}
-            <div className="border border-wire bg-bg2 divide-x divide-wire flex text-center">
+            <div className="flex w-full divide-x divide-wire border border-wire bg-bg2 text-center lg:w-auto">
               {[
                 { val: totalCount, label: "PATTERNS" },
                 { val: categoryCounts?.array || 0, label: "ARRAY" },
                 { val: categoryCounts?.graph || 0, label: "GRAPH" },
                 { val: categoryCounts?.dp || 0, label: "DP" },
               ].map(({ val, label }) => (
-                <div key={label} className="px-3 py-2">
+                <div key={label} className="min-w-0 flex-1 px-3 py-2">
                   <div className="font-display text-xl text-accent leading-none">
                     {val}
                   </div>
-                  <div className="font-mono text-[8px] text-tx3 tracking-wider mt-0.5">
+                  <div className="mt-0.5 truncate font-mono text-[8px] tracking-wider text-tx3">
                     {label}
                   </div>
                 </div>

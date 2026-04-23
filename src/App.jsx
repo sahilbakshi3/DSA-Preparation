@@ -50,7 +50,7 @@ const App = () => {
     <div className="min-h-screen bg-bg text-tx1">
       <Header totalCount={PATTERNS.length} categoryCounts={CAT_COUNTS} />
 
-      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+      <div className="mx-auto w-full max-w-5xl px-3 py-5 sm:px-6 sm:py-6">
         <TabBar active={tab} onChange={setTab} />
 
         {tab === "patterns" && (
@@ -81,9 +81,9 @@ const App = () => {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-wire mt-8">
-        <div className="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between">
-          <span className="font-mono text-[9px] text-tx3 tracking-wider">
+      <div className="mt-8 border-t border-wire">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <span className="font-mono text-[9px] tracking-wider text-tx3">
             DSA_PATTERN_RECON · {PATTERNS.length} PATTERNS
           </span>
           <span className="font-mono text-[9px] text-tx3">
