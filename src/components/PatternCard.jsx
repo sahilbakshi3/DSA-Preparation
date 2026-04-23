@@ -47,14 +47,16 @@ export default function PatternCard({ pattern, defaultOpen = false }) {
     >
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-3 bg-bg2 px-4 py-3.5 text-left transition hover:bg-bg3"
+        className="flex w-full items-center gap-2 sm:gap-3 bg-bg2 px-3 sm:px-4 py-3.5 text-left transition hover:bg-bg3"
       >
         <span
           className="h-2.5 w-2.5 flex-shrink-0 rounded-full"
           style={{ background: p.color }}
         />
-        <span className="flex-1 text-sm font-medium text-tx1">{p.label}</span>
-        <div className="flex items-center gap-2">
+        <span className="min-w-0 flex-1 text-sm font-medium text-tx1">
+          {p.label}
+        </span>
+        <div className="hidden items-center gap-2 sm:flex">
           <span
             className="rounded-full border px-2 py-0.5 font-mono text-[10px] font-semibold"
             style={{
@@ -74,6 +76,18 @@ export default function PatternCard({ pattern, defaultOpen = false }) {
             }}
           >
             {p.diff}
+          </span>
+        </div>
+        <div className="flex items-center gap-1 sm:hidden">
+          <span
+            className="rounded-full border px-1.5 py-0.5 font-mono text-[9px] font-semibold"
+            style={{
+              color: p.tagColor,
+              borderColor: p.tagColor + "50",
+              background: p.color + "18",
+            }}
+          >
+            {p.tag}
           </span>
         </div>
         <span

@@ -11,12 +11,13 @@ const TABS = [
 
 const TabBar = ({ active, onChange }) => {
   return (
-    <div className="mb-6 border border-wire2 bg-bg2 flex flex-wrap">
-      {TABS.map((t, i) => (
-        <button
-          key={t.id}
-          onClick={() => onChange(t.id)}
-          className={`relative px-4 py-3 font-mono text-[10px] tracking-[0.12em] transition-all whitespace-nowrap
+    <div className="mb-6 overflow-x-auto border border-wire2 bg-bg2">
+      <div className="flex min-w-max">
+        {TABS.map((t, i) => (
+          <button
+            key={t.id}
+            onClick={() => onChange(t.id)}
+            className={`relative px-4 py-3 font-mono text-[10px] tracking-[0.12em] transition-all whitespace-nowrap
             ${
               active === t.id
                 ? "bg-accent text-white"
@@ -24,13 +25,13 @@ const TabBar = ({ active, onChange }) => {
             }
             ${i !== TABS.length - 1 ? "border-r border-wire" : ""}
           `}
-        >
-          <span className="hidden sm:inline">{t.label}</span>
-          <span className="sm:hidden">{t.short}</span>
-        </button>
-      ))}
-      {/* Fill remaining space */}
-      <div className="flex-1 border-l border-wire" />
+          >
+            <span className="hidden sm:inline">{t.label}</span>
+            <span className="sm:hidden">{t.short}</span>
+          </button>
+        ))}
+        <div className="flex-1 border-l border-wire" />
+      </div>
     </div>
   );
 };
