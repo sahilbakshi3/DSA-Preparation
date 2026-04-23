@@ -9,7 +9,7 @@ import DecisionGuide from "./components/DecisionGuide.jsx";
 import DrillMode from "./components/DrillMode.jsx";
 import TOC from "./components/TOC.jsx";
 import PatternCard from "./components/PatternCard.jsx";
-import SystemDesign from "./components/SystemDesign.jsx";
+import SystemDesign from "./components/Systemdesign.jsx";
 
 const CAT_COUNTS = PATTERNS.reduce((acc, p) => {
   acc[p.category] = (acc[p.category] || 0) + 1;
