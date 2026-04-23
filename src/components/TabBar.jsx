@@ -1,27 +1,36 @@
 import React from "react";
 
 const TABS = [
-  { id: "patterns", label: "🗂 Patterns" },
-  { id: "templates", label: "⌨ Code Templates" },
-  { id: "drills", label: "🧠 Drills" },
-  { id: "complexity", label: "⏱ Complexity" },
-  { id: "decision", label: "🔀 Decision Guide" },
+  { id: "patterns", label: "PATTERNS", short: "PAT" },
+  { id: "templates", label: "TEMPLATES", short: "TPL" },
+  { id: "drills", label: "DRILLS", short: "DRL" },
+  { id: "sysdesign", label: "SYS DESIGN", short: "SYS" },
+  { id: "complexity", label: "COMPLEXITY", short: "BIG-O" },
+  { id: "decision", label: "DECISION", short: "DEC" },
 ];
 
 const TabBar = ({ active, onChange }) => {
   return (
-    <div className="mb-6 flex flex-wrap gap-1 rounded-xl border border-border1 bg-bg2 p-1">
-      {TABS.map((t) => (
+    <div className="mb-6 border border-wire2 bg-bg2 flex flex-wrap">
+      {TABS.map((t, i) => (
         <button
           key={t.id}
           onClick={() => onChange(t.id)}
-          className={`rounded-lg px-4 py-2 text-xs font-medium font-sans transtition-all whitespace-nowrap 
-                ${active === t.id ? "border border-border2 bg-bg4 text-tx1" : "border border-transparent text-tx3 hover:bg-bg3 hover:text-tx2"}
-                `}
+          className={`relative px-4 py-3 font-mono text-[10px] tracking-[0.12em] transition-all whitespace-nowrap
+            ${
+              active === t.id
+                ? "bg-accent text-white"
+                : "text-tx3 hover:text-tx1 hover:bg-bg3"
+            }
+            ${i !== TABS.length - 1 ? "border-r border-wire" : ""}
+          `}
         >
-          {t.label}
+          <span className="hidden sm:inline">{t.label}</span>
+          <span className="sm:hidden">{t.short}</span>
         </button>
       ))}
+      {/* Fill remaining space */}
+      <div className="flex-1 border-l border-wire" />
     </div>
   );
 };
