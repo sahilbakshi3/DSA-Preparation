@@ -1,21 +1,29 @@
 export default function TOC({ patterns, onJump }) {
   return (
-    <div className="mb-6 rounded-xl border border-border1 bg-bg2 px-5 py-4">
-      <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-widest text-tx3">
-        Quick Jump
-      </p>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 sm:grid-cols-3 md:grid-cols-4">
+    <div className="mb-5 border border-wire2 bg-bg2">
+      <div className="border-b border-wire px-4 py-2 flex items-center gap-3">
+        <span className="font-mono text-[9px] tracking-[0.15em] text-tx3">
+          QUICK_JUMP
+        </span>
+        <span className="flex-1 h-px bg-wire" />
+        <span className="font-mono text-[9px] text-tx3">
+          {patterns.length} entries
+        </span>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 divide-x divide-y divide-wire">
         {patterns.map((p) => (
           <button
             key={p.id}
             onClick={() => onJump(p.id)}
-            className="flex items-center gap-2 rounded py-1 text-left text-xs text-tx2 transition hover:text-tx1"
+            className="flex items-center gap-2 px-3 py-2 text-left hover:bg-bg3 transition-colors group"
           >
             <span
-              className="h-2 w-2 flex-shrink-0 rounded-full"
+              className="w-1.5 h-1.5 flex-shrink-0"
               style={{ background: p.color }}
             />
-            {p.label}
+            <span className="font-mono text-[10px] text-tx3 group-hover:text-tx1 transition-colors truncate">
+              {p.label.toUpperCase()}
+            </span>
           </button>
         ))}
       </div>

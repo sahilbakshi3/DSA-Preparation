@@ -9,8 +9,7 @@ import DecisionGuide from "./components/DecisionGuide.jsx";
 import DrillMode from "./components/DrillMode.jsx";
 import TOC from "./components/TOC.jsx";
 import PatternCard from "./components/PatternCard.jsx";
-
-const TOTAL_COUNT = PATTERNS.length;
+import SystemDesign from "./components/SystemDesign.jsx";
 
 const CAT_COUNTS = PATTERNS.reduce((acc, p) => {
   acc[p.category] = (acc[p.category] || 0) + 1;
@@ -51,7 +50,7 @@ const App = () => {
     <div className="min-h-screen bg-bg text-tx1">
       <Header totalCount={PATTERNS.length} categoryCounts={CAT_COUNTS} />
 
-      <div className="mx-auto max-w-5xl px-4 py-7 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
         <TabBar active={tab} onChange={setTab} />
 
         {tab === "patterns" && (
@@ -65,8 +64,8 @@ const App = () => {
             />
             <TOC patterns={filtered} onJump={jumpToCard} />
             {filtered.length === 0 ? (
-              <div className="py-16 text-center text-sm text-tx3">
-                No patterns match. Try different keywords.
+              <div className="py-16 text-center font-mono text-[11px] text-tx3 tracking-wider">
+                NO PATTERNS MATCH. TRY DIFFERENT KEYWORDS.
               </div>
             ) : (
               filtered.map((p) => <PatternCard key={p.id} pattern={p} />)
@@ -76,8 +75,21 @@ const App = () => {
 
         {tab === "templates" && <CodeTemplates />}
         {tab === "drills" && <DrillMode />}
+        {tab === "sysdesign" && <SystemDesign />}
         {tab === "complexity" && <ComplexityTable />}
         {tab === "decision" && <DecisionGuide />}
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-wire mt-8">
+        <div className="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between">
+          <span className="font-mono text-[9px] text-tx3 tracking-wider">
+            DSA_PATTERN_RECON · {PATTERNS.length} PATTERNS
+          </span>
+          <span className="font-mono text-[9px] text-tx3">
+            <span className="blink text-accent">_</span>
+          </span>
+        </div>
       </div>
     </div>
   );

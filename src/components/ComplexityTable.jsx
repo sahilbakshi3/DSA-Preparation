@@ -1,25 +1,25 @@
 import { COMPLEXITY_TABLE } from "../data/patterns";
 
-const HEADERS = ["Pattern", "Time", "Space", "When to Use", "Avoid When"];
+const HEADERS = ["PATTERN", "TIME", "SPACE", "WHEN TO USE", "AVOID WHEN"];
 
-function timeClass(t) {
+function complexityColor(t) {
   if (t.includes("O(1)") || t.includes("O(log") || t.includes("O(α"))
-    return "text-green font-semibold font-mono";
+    return "text-lime font-semibold";
   if (t.includes("O(n)") && !t.includes("²") && !t.includes("*"))
-    return "text-yellow font-semibold font-mono";
-  return "text-pink font-semibold font-mono";
+    return "text-yellow font-semibold";
+  return "text-pink font-semibold";
 }
 
 export default function ComplexityTable() {
   return (
-    <div className="overflow-x-auto rounded-xl border border-border1">
-      <table className="w-full border-collapse text-[13px]">
+    <div className="overflow-x-auto border border-wire2">
+      <table className="w-full border-collapse text-[12px]">
         <thead>
-          <tr>
+          <tr className="bg-bg2 border-b border-wire">
             {HEADERS.map((h) => (
               <th
                 key={h}
-                className="border border-border1 bg-bg2 px-4 py-3 text-left font-mono text-[11px] font-semibold uppercase tracking-wider text-tx2"
+                className="border-r border-wire last:border-r-0 px-4 py-2.5 text-left font-mono text-[9px] tracking-[0.15em] text-tx3"
               >
                 {h}
               </th>
@@ -28,24 +28,27 @@ export default function ComplexityTable() {
         </thead>
         <tbody>
           {COMPLEXITY_TABLE.map((row, i) => (
-            <tr key={i} className="group transition hover:bg-bg2">
-              <td className="border border-border1 px-4 py-2.5 font-medium text-tx1">
+            <tr
+              key={i}
+              className={`border-b border-wire hover:bg-bg2 transition-colors ${i % 2 === 0 ? "" : "bg-bg2/40"}`}
+            >
+              <td className="border-r border-wire px-4 py-2.5 font-mono text-[11px] text-tx1 whitespace-nowrap">
                 {row[0]}
               </td>
               <td
-                className={`border border-border1 px-4 py-2.5 ${timeClass(row[1])}`}
+                className={`border-r border-wire px-4 py-2.5 font-mono text-[11px] whitespace-nowrap ${complexityColor(row[1])}`}
               >
                 {row[1]}
               </td>
               <td
-                className={`border border-border1 px-4 py-2.5 ${timeClass(row[2])}`}
+                className={`border-r border-wire px-4 py-2.5 font-mono text-[11px] whitespace-nowrap ${complexityColor(row[2])}`}
               >
                 {row[2]}
               </td>
-              <td className="border border-border1 px-4 py-2.5 text-tx2">
+              <td className="border-r border-wire px-4 py-2.5 font-sans text-[11px] text-tx2">
                 {row[3]}
               </td>
-              <td className="border border-border1 px-4 py-2.5 text-tx2">
+              <td className="px-4 py-2.5 font-sans text-[11px] text-tx2">
                 {row[4]}
               </td>
             </tr>
