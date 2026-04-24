@@ -47,10 +47,13 @@ const App = () => {
   }
 
   return (
-    <div className="min-h-screen bg-bg text-tx1">
+    <div
+      className="min-h-screen"
+      style={{ background: "var(--bg-void)", color: "var(--text-primary)" }}
+    >
       <Header totalCount={PATTERNS.length} categoryCounts={CAT_COUNTS} />
 
-      <div className="mx-auto w-full max-w-5xl px-3 py-5 sm:px-6 sm:py-6">
+      <div className="mx-auto w-full max-w-6xl px-3 py-5 sm:px-6 sm:py-6">
         <TabBar active={tab} onChange={setTab} />
 
         {tab === "patterns" && (
@@ -64,8 +67,8 @@ const App = () => {
             />
             <TOC patterns={filtered} onJump={jumpToCard} />
             {filtered.length === 0 ? (
-              <div className="py-16 text-center font-mono text-[11px] text-tx3 tracking-wider">
-                NO PATTERNS MATCH. TRY DIFFERENT KEYWORDS.
+              <div className="py-16 text-center font-mono text-[11px] text-muted tracking-wider">
+                NO PATTERNS MATCH — TRY DIFFERENT KEYWORDS
               </div>
             ) : (
               filtered.map((p) => <PatternCard key={p.id} pattern={p} />)
@@ -81,16 +84,16 @@ const App = () => {
       </div>
 
       {/* Footer */}
-      <div className="mt-8 border-t border-wire">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <span className="font-mono text-[9px] tracking-wider text-tx3">
-            DSA_PATTERN_RECON · {PATTERNS.length} PATTERNS
+      <footer className="mt-8 border-t border-dim">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <span className="font-mono text-[9px] tracking-wider text-muted">
+            DSA_PATTERN_RECON · {PATTERNS.length} PATTERNS LOADED
           </span>
-          <span className="font-mono text-[9px] text-tx3">
-            <span className="blink text-accent">_</span>
+          <span className="font-mono text-[9px] text-muted">
+            BUILT FOR THE GRIND <span className="blink text-amber">_</span>
           </span>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };

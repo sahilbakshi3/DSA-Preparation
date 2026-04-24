@@ -1,39 +1,47 @@
 import { useState, useMemo } from "react";
+import { Shuffle, Eye, CheckCircle, XCircle, Zap, Filter } from "lucide-react";
 import { DRILLS } from "../data/drills";
 
-const DIFF_COLORS = {
-  easy: { color: "#00cc88", bg: "#00cc8815", border: "#00cc8840" },
-  medium: { color: "#ffaa00", bg: "#ffaa0015", border: "#ffaa0040" },
-  hard: { color: "#ff4488", bg: "#ff448815", border: "#ff448840" },
+const DIFF = {
+  easy: {
+    color: "#00ff88",
+    bg: "rgba(0,255,136,0.08)",
+    border: "rgba(0,255,136,0.25)",
+  },
+  medium: {
+    color: "#f5a623",
+    bg: "rgba(245,166,35,0.08)",
+    border: "rgba(245,166,35,0.25)",
+  },
+  hard: {
+    color: "#ff3366",
+    bg: "rgba(255,51,102,0.08)",
+    border: "rgba(255,51,102,0.25)",
+  },
 };
 
 function DrillCard({ drill, index }) {
   const [revealed, setRevealed] = useState(false);
   const [rated, setRated] = useState(null);
-  const ds = DIFF_COLORS[drill.diff] || DIFF_COLORS.medium;
-
-  function reset() {
-    setRevealed(false);
-    setRated(null);
-  }
+  const ds = DIFF[drill.diff] || DIFF.medium;
 
   return (
     <div
-      className={`mb-px border transition-colors ${
+      className={`mb-1.5 border rounded-sm transition-colors ${
         rated === "yes"
-          ? "border-green/40"
+          ? "border-electric/40"
           : rated === "no"
-            ? "border-pink/40"
-            : "border-wire2"
+            ? "border-crimson/40"
+            : "border-dim"
       }`}
     >
-      <div className="px-4 py-3">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="font-mono text-[9px] text-tx3">
+      <div className="px-4 py-3 bg-surface">
+        <div className="flex items-center gap-2 mb-2.5">
+          <span className="font-mono text-[9px] text-muted">
             #{String(index + 1).padStart(2, "0")}
           </span>
           <span
-            className="font-mono text-[8px] tracking-wider border px-2 py-0.5"
+            className="font-mono text-[8px] tracking-wider border px-2 py-0.5 rounded-sm"
             style={{
               color: ds.color,
               background: ds.bg,
@@ -42,16 +50,20 @@ function DrillCard({ drill, index }) {
           >
             {drill.diff.toUpperCase()}
           </span>
-          <span className="font-mono text-[8px] text-tx3 tracking-wider ml-auto">
-            {drill.category.toUpperCase()}
+          <span className="font-mono text-[8px] text-muted tracking-wider ml-auto uppercase">
+            {drill.category}
           </span>
         </div>
-        <p className="font-sans text-sm text-tx1 mb-2">{drill.problem}</p>
+
+        <p className="text-[13px] text-primary mb-3 leading-relaxed">
+          {drill.problem}
+        </p>
+
         <div className="flex flex-wrap gap-1">
           {drill.clues.map((c) => (
             <span
               key={c}
-              className="font-mono text-[9px] border border-blue/30 bg-blue/10 text-blue px-2 py-0.5"
+              className="font-mono text-[9px] border border-plasma/30 bg-plasma/10 text-plasma px-2 py-0.5 rounded-sm"
             >
               {c}
             </span>
@@ -60,54 +72,63 @@ function DrillCard({ drill, index }) {
       </div>
 
       {!revealed ? (
-        <div className="border-t border-wire px-4 py-2.5">
+        <div className="border-t border-dim px-4 py-2.5 bg-deep">
           <button
             onClick={() => setRevealed(true)}
-            className="font-mono text-[9px] tracking-wider border border-wire2 bg-bg2 hover:border-accent hover:text-accent px-4 py-2 transition-all text-tx2"
+            className="btn btn-amber flex items-center gap-2"
           >
-            REVEAL PATTERN →
+            <Eye size={11} />
+            REVEAL PATTERN
           </button>
         </div>
       ) : (
-        <div className="border-t border-wire bg-bg2 px-4 py-3">
-          <div className="font-mono text-[9px] tracking-[0.15em] text-tx3 mb-1">
+        <div className="border-t border-dim bg-deep px-4 py-3">
+          <div className="font-mono text-[9px] text-muted tracking-[0.15em] mb-1">
             PATTERN
           </div>
-          <p className="font-sans text-base font-bold text-accent mb-1">
+          <p className="font-body text-base font-semibold text-amber mb-1">
             {drill.answer}
           </p>
-          <p className="font-sans text-[12px] text-tx2 mb-3 leading-relaxed">
+          <p className="text-[12px] text-secondary mb-3 leading-relaxed">
             {drill.why}
           </p>
 
           {!rated ? (
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[9px] text-tx3 mr-1">
+              <span className="font-mono text-[9px] text-muted mr-1">
                 GOT IT?
               </span>
               <button
                 onClick={() => setRated("yes")}
-                className="font-mono text-[9px] tracking-wider border border-green/40 bg-green/10 text-green px-3 py-1.5 hover:bg-green/20 transition-colors"
+                className="flex items-center gap-1.5 font-mono text-[9px] tracking-wider border border-electric/40 bg-electric/10 text-electric px-3 py-1.5 rounded-sm hover:bg-electric/20 transition-colors"
               >
-                ✓ YES
+                <CheckCircle size={10} /> YES
               </button>
               <button
                 onClick={() => setRated("no")}
-                className="font-mono text-[9px] tracking-wider border border-pink/40 bg-pink/10 text-pink px-3 py-1.5 hover:bg-pink/20 transition-colors"
+                className="flex items-center gap-1.5 font-mono text-[9px] tracking-wider border border-crimson/40 bg-crimson/10 text-crimson px-3 py-1.5 rounded-sm hover:bg-crimson/20 transition-colors"
               >
-                ✗ NO — REVIEW
+                <XCircle size={10} /> NO — REVIEW
               </button>
             </div>
           ) : (
             <div className="flex items-center gap-3">
               <span
-                className={`font-mono text-[10px] font-semibold ${rated === "yes" ? "text-green" : "text-pink"}`}
+                className={`font-mono text-[10px] font-semibold flex items-center gap-1 ${rated === "yes" ? "text-electric" : "text-crimson"}`}
               >
-                {rated === "yes" ? "✓ MARKED KNOWN" : "✗ NEEDS REVIEW"}
+                {rated === "yes" ? (
+                  <CheckCircle size={10} />
+                ) : (
+                  <XCircle size={10} />
+                )}
+                {rated === "yes" ? "MARKED KNOWN" : "NEEDS REVIEW"}
               </span>
               <button
-                onClick={reset}
-                className="font-mono text-[9px] text-tx3 underline hover:text-tx2"
+                onClick={() => {
+                  setRated(null);
+                  setRevealed(false);
+                }}
+                className="font-mono text-[9px] text-muted underline hover:text-secondary"
               >
                 reset
               </button>
@@ -145,46 +166,51 @@ export default function DrillMode() {
   return (
     <div>
       {/* Banner */}
-      <div className="mb-4 border border-blue/30 bg-blue/5 flex items-start gap-0">
-        <span className="font-mono text-[9px] text-blue tracking-[0.15em] px-3 py-3 border-r border-blue/20 flex-shrink-0">
-          MODE
-        </span>
+      <div className="mb-4 border border-cyan/30 bg-cyan/5 rounded-sm flex items-start overflow-hidden">
+        <div className="border-r border-cyan/20 px-3 py-3 flex-shrink-0 flex items-center">
+          <Zap size={14} className="text-cyan" />
+        </div>
         <div className="px-4 py-3">
-          <p className="font-mono text-[10px] text-blue tracking-wider mb-1">
+          <p className="font-mono text-[9px] text-cyan tracking-[0.15em] mb-1">
             PATTERN_RECOGNITION_DRILLS
           </p>
-          <p className="font-sans text-[12px] text-tx2">
-            Read problem + clues. Think 5 seconds. Reveal. This trains instinct,
-            not just knowledge. Mark each. Goal: instant recognition under
-            pressure.
+          <p className="text-[12px] text-secondary">
+            Read problem + clues. Think 5 seconds. Reveal. Trains instinct, not
+            knowledge. Goal: instant recognition under pressure.
           </p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-px mb-4">
+      <div className="flex flex-wrap items-center gap-2 mb-4">
+        <div className="flex items-center gap-1 text-muted">
+          <Filter size={10} />
+          <span className="font-mono text-[9px] tracking-wider">CAT</span>
+        </div>
         {CATS.map((c) => (
           <button
             key={c.id}
             onClick={() => setFilter(c.id)}
-            className={`font-mono text-[9px] tracking-wider border px-3 py-2 transition-all ${
+            className={`font-mono text-[9px] tracking-wider border px-3 py-1.5 rounded-sm transition-all ${
               filter === c.id
-                ? "border-accent text-accent bg-accent/10"
-                : "border-wire text-tx3 hover:border-wire2 hover:text-tx2 bg-bg2"
+                ? "border-amber text-void bg-amber font-semibold"
+                : "border-dim text-muted hover:border-bright hover:text-secondary bg-surface"
             }`}
           >
             {c.label}
           </button>
         ))}
-        <div className="w-px h-6 bg-wire mx-2" />
+
+        <div className="w-px h-4 bg-mid mx-1" />
+
         {DIFFS.map((d) => {
-          const ds = DIFF_COLORS[d];
+          const ds = DIFF[d];
           const active = diffFilter === d;
           return (
             <button
               key={d}
               onClick={() => setDiffFilter(d)}
-              className="font-mono text-[9px] tracking-wider border px-3 py-2 transition-all capitalize"
+              className="font-mono text-[9px] tracking-wider border px-3 py-1.5 rounded-sm transition-all capitalize"
               style={
                 active && d !== "all"
                   ? {
@@ -194,14 +220,14 @@ export default function DrillMode() {
                     }
                   : active
                     ? {
-                        color: "#f0f0f0",
-                        background: "#1a1a1a",
-                        borderColor: "#333",
+                        color: "#e8e8f0",
+                        background: "#12121a",
+                        borderColor: "#2a2a3e",
                       }
                     : {
-                        color: "#555",
-                        background: "#111",
-                        borderColor: "#2a2a2a",
+                        color: "#50506a",
+                        background: "#0d0d14",
+                        borderColor: "#1e1e2e",
                       }
               }
             >
@@ -209,19 +235,21 @@ export default function DrillMode() {
             </button>
           );
         })}
+
         <button
           onClick={() => setShuffled((s) => !s)}
-          className={`font-mono text-[9px] tracking-wider border px-3 py-2 transition-all ml-auto ${
+          className={`flex items-center gap-1.5 font-mono text-[9px] tracking-wider border px-3 py-1.5 rounded-sm transition-all ml-auto ${
             shuffled
-              ? "border-purple/40 bg-purple/10 text-purple"
-              : "border-wire text-tx3 hover:border-wire2 hover:text-tx2 bg-bg2"
+              ? "border-plasma/40 bg-plasma/10 text-plasma"
+              : "border-dim text-muted hover:border-bright hover:text-secondary bg-surface"
           }`}
         >
+          <Shuffle size={10} />
           {shuffled ? "SHUFFLE ON" : "SHUFFLE"}
         </button>
       </div>
 
-      <p className="font-mono text-[9px] text-tx3 tracking-wider mb-3">
+      <p className="font-mono text-[9px] text-muted tracking-wider mb-3">
         {filtered.length} DRILLS
       </p>
 

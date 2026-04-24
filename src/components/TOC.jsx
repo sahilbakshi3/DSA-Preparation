@@ -1,29 +1,37 @@
+import { Hash, ChevronRight } from "lucide-react";
+
 export default function TOC({ patterns, onJump }) {
   return (
-    <div className="mb-5 border border-wire2 bg-bg2">
-      <div className="border-b border-wire px-4 py-2 flex items-center gap-3">
-        <span className="font-mono text-[9px] tracking-[0.15em] text-tx3">
-          QUICK_JUMP
-        </span>
-        <span className="flex-1 h-px bg-wire" />
-        <span className="font-mono text-[9px] text-tx3">
+    <div className="mb-5 border border-mid bg-surface rounded-sm overflow-hidden">
+      <div className="border-b border-dim px-4 py-2 flex items-center justify-between bg-raised">
+        <div className="flex items-center gap-2">
+          <Hash size={10} className="text-amber" />
+          <span className="font-mono text-[9px] text-muted tracking-[0.18em]">
+            QUICK_JUMP
+          </span>
+        </div>
+        <span className="font-mono text-[9px] text-muted">
           {patterns.length} entries
         </span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 divide-x divide-y divide-wire">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 divide-x divide-y divide-dim">
         {patterns.map((p) => (
           <button
             key={p.id}
             onClick={() => onJump(p.id)}
-            className="flex items-center gap-2 px-3 py-2 text-left hover:bg-bg3 transition-colors group"
+            className="flex items-center gap-2 px-3 py-2 text-left hover:bg-raised transition-colors group"
           >
             <span
-              className="w-1.5 h-1.5 flex-shrink-0"
+              className="w-1.5 h-1.5 flex-shrink-0 rounded-full"
               style={{ background: p.color }}
             />
-            <span className="font-mono text-[10px] text-tx3 group-hover:text-tx1 transition-colors truncate">
+            <span className="font-mono text-[9px] text-muted group-hover:text-primary transition-colors truncate leading-tight">
               {p.label.toUpperCase()}
             </span>
+            <ChevronRight
+              size={8}
+              className="flex-shrink-0 text-muted opacity-0 group-hover:opacity-100 transition-opacity ml-auto"
+            />
           </button>
         ))}
       </div>
