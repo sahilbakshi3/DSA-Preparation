@@ -4,11 +4,13 @@ import {
   Zap,
   Cpu,
   Database,
+  ArrowUpDown,
   ExternalLink,
 } from "lucide-react";
 
 const CAT_BADGES = [
   { label: "ARRAY / STRING", color: "#00d4ff", icon: "▸" },
+  { label: "SORTING", color: "#ff6b8b", icon: "▸" },
   { label: "GRAPH / TREE", color: "#00ff88", icon: "▸" },
   { label: "DP / RECURSION", color: "#7c6af7", icon: "▸" },
   { label: "SYS DESIGN", color: "#f5a623", icon: "▸" },
@@ -82,8 +84,8 @@ export default function Header({ totalCount, categoryCounts }) {
 
             {/* Stat grid */}
             <div
-              className="grid grid-cols-4 border border-mid bg-surface"
-              style={{ minWidth: 280 }}
+              className="grid grid-cols-5 border border-mid bg-surface"
+              style={{ minWidth: 360 }}
             >
               {[
                 {
@@ -97,6 +99,12 @@ export default function Header({ totalCount, categoryCounts }) {
                   label: "ARRAY",
                   color: "#00d4ff",
                   icon: <Cpu size={10} />,
+                },
+                {
+                  val: categoryCounts?.sorting || 0,
+                  label: "SORT",
+                  color: "#ff6b8b",
+                  icon: <ArrowUpDown size={10} />,
                 },
                 {
                   val: categoryCounts?.graph || 0,

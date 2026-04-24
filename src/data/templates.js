@@ -169,6 +169,45 @@ int bsOnAnswer(vector<int>& nums, int threshold) {
     ],
   },
   {
+    id: "sorting",
+    label: "Sorting",
+    color: "#FF6B8B",
+    variants: [
+      {
+        name: "Default ascending",
+        code: `// Default sort (ascending)
+void sortAscending(vector<int>& nums) {
+    sort(nums.begin(), nums.end());
+}`,
+      },
+      {
+        name: "Custom comparator (pairs)",
+        code: `// Sort pairs by first ascending, second descending
+void sortPairs(vector<pair<int,int>>& arr) {
+    sort(arr.begin(), arr.end(), [](const auto& a, const auto& b) {
+        if (a.first != b.first) return a.first < b.first;
+        return a.second > b.second;
+    });
+}`,
+      },
+      {
+        name: "Stable sort",
+        code: `// Keep relative order of equal keys
+struct Student {
+    string name;
+    int score;
+};
+
+void sortByScoreStable(vector<Student>& students) {
+    stable_sort(students.begin(), students.end(),
+        [](const Student& a, const Student& b) {
+            return a.score < b.score;
+        });
+}`,
+      },
+    ],
+  },
+  {
     id: "dfs",
     label: "DFS",
     color: "#9F77DD",

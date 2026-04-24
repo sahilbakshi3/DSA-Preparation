@@ -3,6 +3,7 @@ import { Search, X, Filter } from "lucide-react";
 const CATS = [
   { id: "all", label: "ALL" },
   { id: "array", label: "ARRAY/STR" },
+  { id: "sorting", label: "SORTING" },
   { id: "graph", label: "GRAPH/TREE" },
   { id: "dp", label: "DP/RECUR" },
 ];
