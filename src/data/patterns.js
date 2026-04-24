@@ -245,6 +245,71 @@ Rotated sorted array?
     ],
   },
   {
+    id: "sorting",
+    label: "Sorting",
+    color: "#FF6B8B",
+    tag: "Array",
+    tagColor: "#C44569",
+    category: "sorting",
+    diff: "easy",
+    complexity: { time: "O(n log n)", space: "O(1) to O(n)" },
+    signals: [
+      "Need ordered output or smallest/largest k elements",
+      "Intervals/events need to be processed by start/end time",
+      "Greedy choice depends on processing in sorted order",
+      "Two pointers becomes possible only after sorting",
+      "Custom ordering required (pair, tuple, object fields)",
+      '"Prompt says "sort and then..." (very common first step)',
+    ],
+    keywords: [
+      "sort",
+      "ordered",
+      "comparator",
+      "custom sort",
+      "interval",
+      "meeting rooms",
+      "kth",
+      "rank",
+      "line sweep",
+      "bucket",
+    ],
+    notThis:
+      "If you need only one min/max value → single scan O(n). If values are tiny bounded range → counting sort / bucket may beat O(n log n).",
+    flow: `Do you need global ordering?
+  YES → sort first (default O(n log n))
+
+Is key range small and bounded?
+  YES → counting/bucket sort can be O(n + k)
+  NO  → comparison sort (std::sort / quicksort / mergesort)
+
+Need stability (keep equal elements' relative order)?
+  YES → stable_sort / mergesort`,
+    traps: [
+      "Sorting is often step 1, not full solution — still need sweep / two pointers / greedy after",
+      "For interview code, always state sort complexity first before main loop",
+      "Wrong comparator can violate strict weak ordering and break sort behavior",
+      "In-place sort mutates input; copy array first if original order is needed",
+    ],
+    vs: {
+      a: {
+        label: "Comparison Sort",
+        desc: "General purpose, O(n log n), works for arbitrary comparable values.",
+      },
+      b: {
+        label: "Counting/Bucket",
+        desc: "When value range is small, can achieve linear-ish time.",
+      },
+    },
+    problems: [
+      { name: "Merge Intervals", diff: "medium" },
+      { name: "Meeting Rooms", diff: "easy" },
+      { name: "Sort Colors", diff: "medium" },
+      { name: "Largest Number", diff: "medium" },
+      { name: "K Closest Points to Origin", diff: "medium" },
+      { name: "Car Fleet", diff: "medium" },
+    ],
+  },
+  {
     id: "hashmap",
     label: "HashMap / HashSet",
     color: "#5DCAA5",
@@ -1857,6 +1922,20 @@ const FAIL_FAST_MAP = {
     {
       rule: "Values change dynamically?",
       verdict: "NOT static Prefix Sum → BIT/Fenwick for dynamic prefix",
+    },
+  ],
+  sorting: [
+    {
+      rule: "Need only smallest/largest single value?",
+      verdict: "NOT full sort → single scan O(n)",
+    },
+    {
+      rule: "Need top K only and K << n?",
+      verdict: "NOT full sort → Heap / Quickselect is usually better",
+    },
+    {
+      rule: "Data arrives as stream continuously?",
+      verdict: "NOT one-time sort → maintain Heap / balanced BST",
     },
   ],
   hashmap: [
